@@ -1,6 +1,7 @@
 package se.joel.coredev.backend.resource;
 
 //import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.stereotype.Component;
 import se.joel.coredev.backend.repository.data.User;
 import se.joel.coredev.backend.service.UserService;
@@ -15,6 +16,8 @@ import java.net.URI;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Optional;
 
 @Path("users")
 @Component
@@ -28,21 +31,24 @@ public final class UserResource {
     @Context
     private HttpServletResponse servletResponse;
 
-    public UserResource(UserService userService){
+    public UserResource(UserService userService) {
         this.userService = userService;
     }
 
     @POST
     //@PreAuthorize("hasAuthority('ADMIN')")
-    public Response postUser(User user){
+    public Response postUser(User user) throws NoSuchAlgorithmException {
         return Response.created(locationOf(userService.addUser(user))).build();
     }
 
     @GET
-    public Response loginTest(){
+    public Response loginTest(User user) {
         allowCrossDomainAccess();
-        fuckThis();
-        return Response.ok(("Logged in!")).build();
+        getCurrentIP();
+        if(userService.login(user).isPresent()){
+            return Response.ok("Logged in!").build();
+        }
+        return Response.ok("Wrong password").build();
     }
 
     private URI locationOf(User user) {
@@ -51,22 +57,17 @@ public final class UserResource {
     }
 
     private void allowCrossDomainAccess() {
-        if (servletResponse != null){
+        if (servletResponse != null) {
             servletResponse.setHeader("Access-Control-Allow-Origin", "*");
         }
     }
 
-    private void fuckThis(){
-        InetAddress ip;
+    private void getCurrentIP() {
         try {
-
-            ip = InetAddress.getLocalHost();
+            InetAddress ip = InetAddress.getLocalHost();
             System.out.println("Current IP address : " + ip.getHostAddress());
-
         } catch (UnknownHostException e) {
-            System.out.println("Nehe, det sket sig såklart");
-//            e.printStackTrace();
-
+            System.out.println("Could not obtain current IP address");
         }
     }
 }
