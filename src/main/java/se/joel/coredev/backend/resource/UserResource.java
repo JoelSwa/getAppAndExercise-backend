@@ -1,11 +1,8 @@
 package se.joel.coredev.backend.resource;
 
-//import org.springframework.security.access.prepost.PreAuthorize;
-
 import org.springframework.stereotype.Component;
 import se.joel.coredev.backend.repository.data.User;
 import se.joel.coredev.backend.service.UserService;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -13,11 +10,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Optional;
+
 
 @Path("users")
 @Component
@@ -36,19 +30,26 @@ public final class UserResource {
     }
 
     @POST
-    //@PreAuthorize("hasAuthority('ADMIN')")
     public Response postUser(User user) throws NoSuchAlgorithmException {
         return Response.created(locationOf(userService.addUser(user))).build();
     }
 
+    @POST
+    @Path("/login")
+    public Response login(User user) {
+        return Response.accepted(userService.login(user)).build();
+//        Optional<User> userOptional = userService.login(user);
+//        if (userOptional.isPresent()) {
+//            return Response.ok(userOptional.get()).build();
+//        }
+//        return Response.ok("{\"test\": \"failure tho\"}").build();
+    }
+
+
     @GET
-    public Response loginTest(User user) {
-        allowCrossDomainAccess();
-        getCurrentIP();
-        if(userService.login(user).isPresent()){
-            return Response.ok("Logged in!").build();
-        }
-        return Response.ok("Wrong password").build();
+    @Path("/loginTest")
+    public Response loginTest() {
+        return Response.ok("{\"test\": \"Success\"}").build();
     }
 
     private URI locationOf(User user) {
@@ -59,15 +60,6 @@ public final class UserResource {
     private void allowCrossDomainAccess() {
         if (servletResponse != null) {
             servletResponse.setHeader("Access-Control-Allow-Origin", "*");
-        }
-    }
-
-    private void getCurrentIP() {
-        try {
-            InetAddress ip = InetAddress.getLocalHost();
-            System.out.println("Current IP address : " + ip.getHostAddress());
-        } catch (UnknownHostException e) {
-            System.out.println("Could not obtain current IP address");
         }
     }
 }
