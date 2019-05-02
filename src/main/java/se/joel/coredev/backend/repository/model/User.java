@@ -1,5 +1,7 @@
 package se.joel.coredev.backend.repository.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -24,6 +26,7 @@ public class User {
     @Column(name = "GEOFENCES")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER,
             orphanRemoval = true)
+    @JsonIgnore
     private Collection<Geofence> geofences;
 
     protected User() {

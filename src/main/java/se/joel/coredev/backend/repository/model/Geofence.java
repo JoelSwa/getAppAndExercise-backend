@@ -1,5 +1,7 @@
 package se.joel.coredev.backend.repository.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity(name = "Geofence")
@@ -21,6 +23,7 @@ public class Geofence {
     private int radius;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
     protected Geofence(){

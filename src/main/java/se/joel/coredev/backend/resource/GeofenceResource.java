@@ -32,6 +32,12 @@ public final class GeofenceResource {
         return Response.created(locationOf(geofenceService.addGeofence(userId, geofence))).build();
     }
 
+    @GET
+    @Path("{id}")
+    public Response getGeofencesForUser(@PathParam("id") Long userId){
+        return Response.ok(geofenceService.getGeofencesForUser(userId)).build();
+    }
+
     private URI locationOf(Geofence geofence) {
         return uriInfo.getBaseUriBuilder().path(uriInfo.getPathSegments().get(0).toString())
                 .segment(geofence.getId().toString()).build();
