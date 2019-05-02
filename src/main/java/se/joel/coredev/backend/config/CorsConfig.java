@@ -18,7 +18,6 @@ public class CorsConfig {
         config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
-        //path nedan, behöver den se ut så?
         configSource.registerCorsConfiguration("/**", config);
         return new FilterRegistrationBean(new CorsFilter(configSource));
     }

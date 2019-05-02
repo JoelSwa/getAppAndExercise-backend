@@ -3,6 +3,7 @@ package se.joel.coredev.backend.resource;
 import org.springframework.stereotype.Component;
 import se.joel.coredev.backend.repository.data.User;
 import se.joel.coredev.backend.service.UserService;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -15,7 +16,7 @@ import java.security.NoSuchAlgorithmException;
 
 @Path("users")
 @Component
-@Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+@Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public final class UserResource {
 
@@ -40,7 +41,6 @@ public final class UserResource {
         return Response.accepted(userService.login(user)).build();
     }
 
-
     @GET
     @Path("/loginTest")
     public Response loginTest() {
@@ -50,11 +50,5 @@ public final class UserResource {
     private URI locationOf(User user) {
         return uriInfo.getBaseUriBuilder().path(uriInfo.getPathSegments().get(0).toString())
                 .segment(user.getId().toString()).build();
-    }
-
-    private void allowCrossDomainAccess() {
-        if (servletResponse != null) {
-            servletResponse.setHeader("Access-Control-Allow-Origin", "*");
-        }
     }
 }

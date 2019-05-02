@@ -31,12 +31,11 @@ public final class UserService {
             System.out.println("userDB username : " + userDB.getUsername());
             System.out.println("userDB password : " + userDB.getPassword());
             System.out.println("userDB authority : " + userDB.getAuthority());
-            System.out.println("userDB.toString() : " + userDB.toString());
             boolean correctPassword = HashAssistant.comparePasswords(
                     userDB.getPassword(),
                     user.getPassword());
-            System.out.println("Correct password : " + correctPassword);
-            if(correctPassword){
+            System.out.println("Correct password : " + correctPassword + "\n");
+            if (correctPassword) {
                 return userDB;
             }
             throw new BadInputException("Wrong password");
@@ -45,13 +44,13 @@ public final class UserService {
     }
 
     private User validate(User user) {
-        if(null == user){
+        if (null == user) {
             throw new BadInputException("User is null");
         }
-        if(null == user.getUsername() || user.getUsername().isEmpty()){
+        if (null == user.getUsername() || user.getUsername().isEmpty()) {
             throw new BadInputException("Username is empty");
         }
-        if(null == user.getPassword() || user.getPassword().isEmpty()){
+        if (null == user.getPassword() || user.getPassword().isEmpty()) {
             throw new BadInputException("Password is empty");
         }
         if (null == user.getAuthority() || user.getAuthority().isEmpty()) {

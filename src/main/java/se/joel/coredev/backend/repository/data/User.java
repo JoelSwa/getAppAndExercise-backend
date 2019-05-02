@@ -20,15 +20,16 @@ public class User {
     @Column(name = "AUTHORITY")
     private String authority;
 
-    protected User(){}
+    protected User() {
+    }
 
-    public User(String username, String password){
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
         this.authority = "user";
     }
 
-    public User(String username, String password, String authority){
+    public User(String username, String password, String authority) {
         this.username = username;
         this.password = password;
         this.authority = authority;
@@ -38,7 +39,7 @@ public class User {
         return id;
     }
 
-    public String getUsername(){
+    public String getUsername() {
         return username;
     }
 
@@ -46,5 +47,7 @@ public class User {
         return password;
     }
 
-    public String getAuthority() { return authority; }
+    public String getAuthority() {
+        return authority;
+    }
 }

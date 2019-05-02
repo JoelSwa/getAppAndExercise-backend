@@ -13,7 +13,7 @@ public class HashAssistant {
         return new User(user.getUsername(), generateHash(user.getPassword(), ALGORITHM), user.getAuthority());
     }
 
-    public static boolean comparePasswords(String passwordDatabase, String passwordSent){
+    public static boolean comparePasswords(String passwordDatabase, String passwordSent) {
         String var1 = passwordDatabase;
         String var2 = "";
         try {
@@ -21,7 +21,7 @@ public class HashAssistant {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        if(var1.equals(var2)){
+        if (var1.equals(var2)) {
             return true;
         }
         return false;
