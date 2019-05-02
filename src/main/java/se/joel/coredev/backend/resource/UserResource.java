@@ -38,11 +38,6 @@ public final class UserResource {
     @Path("/login")
     public Response login(User user) {
         return Response.accepted(userService.login(user)).build();
-//        Optional<User> userOptional = userService.login(user);
-//        if (userOptional.isPresent()) {
-//            return Response.ok(userOptional.get()).build();
-//        }
-//        return Response.ok("{\"test\": \"failure tho\"}").build();
     }
 
 
