@@ -1,6 +1,7 @@
-package se.joel.coredev.backend.repository.data;
+package se.joel.coredev.backend.repository.model;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity(name = "User")
 @Table(name = "USER")
@@ -19,6 +20,11 @@ public class User {
 
     @Column(name = "AUTHORITY")
     private String authority;
+
+    @Column(name = "GEOFENCES")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER,
+            orphanRemoval = true)
+    private Collection<Geofence> geofences;
 
     protected User() {
     }
@@ -50,4 +56,6 @@ public class User {
     public String getAuthority() {
         return authority;
     }
+
+    public Collection<Geofence> getGeofences() { return geofences; }
 }

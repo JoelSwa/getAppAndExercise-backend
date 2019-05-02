@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import se.joel.coredev.backend.exception.BadInputException;
 import se.joel.coredev.backend.exception.NotFoundException;
 import se.joel.coredev.backend.repository.UserRepository;
-import se.joel.coredev.backend.repository.data.User;
+import se.joel.coredev.backend.repository.model.User;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
@@ -15,6 +15,7 @@ public final class UserService {
 
     @Autowired
     private final UserRepository userRepository;
+
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;

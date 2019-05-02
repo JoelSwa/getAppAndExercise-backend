@@ -1,11 +1,11 @@
 package se.joel.coredev.backend.service;
 
-import se.joel.coredev.backend.repository.data.User;
+import se.joel.coredev.backend.repository.model.User;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class HashAssistant {
+public final class HashAssistant {
 
     private static final String ALGORITHM = "SHA-256";
 

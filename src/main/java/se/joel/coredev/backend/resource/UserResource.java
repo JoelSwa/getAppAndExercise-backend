@@ -1,10 +1,9 @@
 package se.joel.coredev.backend.resource;
 
 import org.springframework.stereotype.Component;
-import se.joel.coredev.backend.repository.data.User;
+import se.joel.coredev.backend.repository.model.User;
 import se.joel.coredev.backend.service.UserService;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -23,8 +22,6 @@ public final class UserResource {
     private final UserService userService;
     @Context
     private UriInfo uriInfo;
-    @Context
-    private HttpServletResponse servletResponse;
 
     public UserResource(UserService userService) {
         this.userService = userService;
@@ -39,12 +36,6 @@ public final class UserResource {
     @Path("/login")
     public Response login(User user) {
         return Response.accepted(userService.login(user)).build();
-    }
-
-    @GET
-    @Path("/loginTest")
-    public Response loginTest() {
-        return Response.ok("{\"test\": \"Success\"}").build();
     }
 
     private URI locationOf(User user) {
