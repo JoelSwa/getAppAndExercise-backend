@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity(name = "Geofence")
 @Table(name = "GEOFENCE")
-public class Geofence {
+public final class Geofence {
 
     @Id
     @Column(name = "ID")

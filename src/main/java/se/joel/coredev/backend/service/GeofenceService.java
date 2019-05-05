@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import se.joel.coredev.backend.exception.NotFoundException;
 import se.joel.coredev.backend.repository.GeofenceRepository;
 import se.joel.coredev.backend.repository.UserRepository;
+import se.joel.coredev.backend.repository.dto.GeofenceDTO;
 import se.joel.coredev.backend.repository.model.Geofence;
 import se.joel.coredev.backend.repository.model.User;
 
@@ -25,16 +26,16 @@ public final class GeofenceService {
         this.userRepository = userRepository;
     }
 
-    public Geofence addGeofence(Long userId, Geofence geofence) {
-        Optional<User> userOptional = userRepository.findById(userId);
+    public Geofence addGeofence(GeofenceDTO geofenceDTO) {
+        Optional<User> userOptional = userRepository.findByUsername(geofenceDTO.getUsername());
         if (userOptional.isPresent()) {
             return geofenceRepository.save(new Geofence(
-                    geofence.getLatitude(),
-                    geofence.getLongitude(),
-                    geofence.getRadius(),
+                    geofenceDTO.getLatitude(),
+                    geofenceDTO.getLongitude(),
+                    geofenceDTO.getRadius(),
                     userOptional.get()));
         }
-        throw new NotFoundException("Could not add geofence, User not found");
+        throw new NotFoundException("Could not add geofence, user not found");
     }
 
     public Collection<Geofence> getGeofencesForUser(Long userId){

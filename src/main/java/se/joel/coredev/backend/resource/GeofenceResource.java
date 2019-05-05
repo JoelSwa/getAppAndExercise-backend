@@ -1,6 +1,7 @@
 package se.joel.coredev.backend.resource;
 
 import org.springframework.stereotype.Component;
+import se.joel.coredev.backend.repository.dto.GeofenceDTO;
 import se.joel.coredev.backend.repository.model.Geofence;
 import se.joel.coredev.backend.repository.model.User;
 import se.joel.coredev.backend.service.GeofenceService;
@@ -27,9 +28,8 @@ public final class GeofenceResource {
     }
 
     @POST
-    @Path("{id}")
-    public Response addGeofence(@PathParam("id") Long userId, Geofence geofence){
-        return Response.created(locationOf(geofenceService.addGeofence(userId, geofence))).build();
+    public Response addGeofence(GeofenceDTO geofenceDTO){
+        return Response.created(locationOf(geofenceService.addGeofence(geofenceDTO))).build();
     }
 
     @GET

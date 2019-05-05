@@ -7,7 +7,7 @@ import java.util.Collection;
 
 @Entity(name = "User")
 @Table(name = "USER")
-public class User {
+public final class User {
 
     @Id
     @Column(name = "ID")
