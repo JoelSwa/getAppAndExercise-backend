@@ -5,51 +5,33 @@ package se.joel.coredev.backend.repository.dto;
  * able to easily receive and transfer data.
  *
  */
-public class GeofenceDTO {
+public class UserDTO {
 
     // ***********************************************************
     // Fields
     // ***********************************************************
 
-    private double latitude;
-    private double longitude;
-    private int radius;
     private String username;
+    private String test;
 
     // ***********************************************************
     // Constructors
     // ***********************************************************
 
-    public GeofenceDTO(double latitude, double longitude, int radius, String username){
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.radius = radius;
+    public UserDTO(String username, String test){
         this.username = username;
-    }
-
-    public GeofenceDTO(double latitude, double longitude, int radius){
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.radius = radius;
+        this.test = test;
     }
 
     // ***********************************************************
     // Public methods
     // ***********************************************************
 
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public int getRadius() {
-        return radius;
-    }
-
     public String getUsername() {
         return username;
+    }
+
+    public String getTest(){
+        return test;
     }
 }

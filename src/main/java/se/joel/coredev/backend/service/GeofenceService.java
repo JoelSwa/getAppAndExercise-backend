@@ -6,10 +6,13 @@ import se.joel.coredev.backend.exception.NotFoundException;
 import se.joel.coredev.backend.repository.GeofenceRepository;
 import se.joel.coredev.backend.repository.UserRepository;
 import se.joel.coredev.backend.repository.dto.GeofenceDTO;
+import se.joel.coredev.backend.repository.dto.UserDTO;
 import se.joel.coredev.backend.repository.model.Geofence;
 import se.joel.coredev.backend.repository.model.User;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,12 +41,17 @@ public final class GeofenceService {
         throw new NotFoundException("Could not add geofence, user not found");
     }
 
-    public Collection<Geofence> getGeofencesForUser(Long userId){
-        Optional<User> userOptional = userRepository.findById(userId);
-        if (userOptional.isPresent()){
+    public List<GeofenceDTO> getGeofencesFromDTO(UserDTO userDTO) {
+        List<GeofenceDTO> geofences = new ArrayList<>();
+        System.out.println("userDTO username: " + userDTO.getUsername());
+        Optional<User> userOptional = userRepository.findByUsername(userDTO.getUsername());
+        if (userOptional.isPresent()) {
             User user = userOptional.get();
-            if(null != user.getGeofences() && user.getGeofences().size() > 0){
-                return user.getGeofences();
+            if (null != user.getGeofences() && user.getGeofences().size() > 0) {
+                for(Geofence geo : user.getGeofences()){
+                    geofences.add(new GeofenceDTO(geo.getLatitude(), geo.getLongitude(), geo.getRadius()));
+                }
+                return geofences;
             }
             throw new NotFoundException("No geofences found for user");
         }
