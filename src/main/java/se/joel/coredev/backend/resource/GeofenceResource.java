@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
+import java.util.List;
 
 @Path("geofences")
 @Component
@@ -30,6 +31,13 @@ public final class GeofenceResource {
     @POST
     public Response addGeofence(GeofenceDTO geofenceDTO){
         return Response.created(locationOf(geofenceService.addGeofence(geofenceDTO))).build();
+    }
+
+    @POST
+    @Path("test")
+    public Response addGeofenceTest(GeofenceDTO geofenceDTO){
+        System.out.println(geofenceDTO.getUsername());
+        return Response.ok().build();
     }
 
     @POST

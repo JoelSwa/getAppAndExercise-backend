@@ -1,6 +1,8 @@
 package se.joel.coredev.backend.repository.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -11,7 +13,6 @@ import java.util.Collection;
  *
  */
 @Entity(name = "User")
-@Table(name = "USER")
 public final class User {
 
     // ***********************************************************
@@ -26,20 +27,20 @@ public final class User {
      *
      */
     @Id
-    @Column(name = "ID")
     @GeneratedValue()
     private Long id;
-    @Column(name = "USERNAME")
     private String username;
-    @Column(name = "PASSWORD")
     private String password;
-    @Column(name = "AUTHORITY")
     private String authority;
-    @Column(name = "GEOFENCES")
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER,
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",
             orphanRemoval = true)
     @JsonIgnore
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<Geofence> geofences;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",
+            orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Collection<Walk> walks;
 
     // ***********************************************************
     // Constructors
@@ -87,4 +88,8 @@ public final class User {
     }
 
     public Collection<Geofence> getGeofences() { return geofences; }
+
+    public Collection<Walk> getWalks() {
+        return walks;
+    }
 }

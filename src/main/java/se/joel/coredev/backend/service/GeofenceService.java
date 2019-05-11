@@ -9,6 +9,7 @@ import se.joel.coredev.backend.repository.dto.GeofenceDTO;
 import se.joel.coredev.backend.repository.dto.UserDTO;
 import se.joel.coredev.backend.repository.model.Geofence;
 import se.joel.coredev.backend.repository.model.User;
+import se.joel.coredev.backend.repository.model.Walk;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,9 +34,11 @@ public final class GeofenceService {
         Optional<User> userOptional = userRepository.findByUsername(geofenceDTO.getUsername());
         if (userOptional.isPresent()) {
             return geofenceRepository.save(new Geofence(
+                    geofenceDTO.getName(),
                     geofenceDTO.getLatitude(),
                     geofenceDTO.getLongitude(),
                     geofenceDTO.getRadius(),
+                    geofenceDTO.getTransition(),
                     userOptional.get()));
         }
         throw new NotFoundException("Could not add geofence, user not found");
@@ -49,7 +52,7 @@ public final class GeofenceService {
             User user = userOptional.get();
             if (null != user.getGeofences() && user.getGeofences().size() > 0) {
                 for(Geofence geo : user.getGeofences()){
-                    geofences.add(new GeofenceDTO(geo.getLatitude(), geo.getLongitude(), geo.getRadius()));
+                    geofences.add(new GeofenceDTO(geo.getId(), geo.getName(), geo.getLatitude(), geo.getLongitude(), geo.getRadius(), geo.getTransition()));
                 }
                 return geofences;
             }

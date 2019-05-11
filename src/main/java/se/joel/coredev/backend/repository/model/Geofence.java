@@ -3,6 +3,7 @@ package se.joel.coredev.backend.repository.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * Objects of this class are created for the purpose of being
@@ -10,7 +11,6 @@ import javax.persistence.*;
  *
  */
 @Entity(name = "Geofence")
-@Table(name = "GEOFENCE")
 public final class Geofence {
 
     // ***********************************************************
@@ -25,18 +25,18 @@ public final class Geofence {
      *
      */
     @Id
-    @Column(name = "ID")
     @GeneratedValue()
     private Long id;
-    @Column(name = "LATITUDE")
+    private String name;
     private double latitude;
-    @Column(name = "LONGITUDE")
     private double longitude;
-    @Column(name = "RADIUS")
     private int radius;
+    private int transition;
     @ManyToOne
     @JsonIgnore
     private User user;
+    @ManyToMany
+    private Collection<Walk> walks;
 
     // ***********************************************************
     // Constructors
@@ -50,10 +50,12 @@ public final class Geofence {
     protected Geofence(){
     }
 
-    public Geofence(double latitude, double longitude, int radius, User user){
+    public Geofence(String name, double latitude, double longitude, int radius, int transition, User user){
+        this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.radius = radius;
+        this.transition = transition;
         this.user = user;
     }
 
@@ -80,4 +82,14 @@ public final class Geofence {
     public User getUser() {
         return user;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getTransition() {
+        return transition;
+    }
+
+    public Collection<Walk> getWalks() { return walks; }
 }
