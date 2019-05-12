@@ -3,6 +3,7 @@ package se.joel.coredev.backend.resource;
 import org.springframework.stereotype.Component;
 import se.joel.coredev.backend.repository.dto.GeofenceDTO;
 import se.joel.coredev.backend.repository.dto.UserDTO;
+import se.joel.coredev.backend.repository.dto.WalkDTO;
 import se.joel.coredev.backend.repository.model.Geofence;
 import se.joel.coredev.backend.service.GeofenceService;
 
@@ -12,7 +13,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
-import java.util.List;
 
 @Path("geofences")
 @Component
@@ -43,7 +43,13 @@ public final class GeofenceResource {
     @POST
     @Path("all")
     public Response getGeofencesForUser(UserDTO userDTO){
-        return Response.ok(geofenceService.getGeofencesFromDTO(userDTO)).build();
+        return Response.ok(geofenceService.getGeofencesForUser(userDTO)).build();
+    }
+
+    @POST
+    @Path("walk")
+    public Response getGeofencesForWalk(WalkDTO walkDTO){
+        return Response.ok(geofenceService.getGeofencesForWalk(walkDTO)).build();
     }
 
     private URI locationOf(Geofence geofence) {

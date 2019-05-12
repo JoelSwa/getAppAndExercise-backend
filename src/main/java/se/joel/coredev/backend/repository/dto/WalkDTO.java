@@ -15,6 +15,15 @@ public class WalkDTO {
         this.geofenceCollection = geofenceDTOCollection;
     }
 
+    public WalkDTO(String name, Collection<GeofenceDTO> geofenceDTOCollection){
+        this.name = name;
+        this.geofenceCollection = geofenceDTOCollection;
+    }
+
+    public WalkDTO(String name){
+        this.name = name;
+    }
+
     public String getUsername() {
         return username;
     }

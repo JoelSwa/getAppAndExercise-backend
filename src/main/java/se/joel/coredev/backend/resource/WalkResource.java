@@ -1,6 +1,7 @@
 package se.joel.coredev.backend.resource;
 
 import org.springframework.stereotype.Component;
+import se.joel.coredev.backend.repository.dto.UserDTO;
 import se.joel.coredev.backend.repository.dto.WalkDTO;
 import se.joel.coredev.backend.repository.model.Walk;
 import se.joel.coredev.backend.service.WalkService;
@@ -29,6 +30,12 @@ public final class WalkResource {
     @POST
     public Response addWalk(WalkDTO walkDTO){
         return Response.created(locationOf(walkService.addWalk(walkDTO))).build();
+    }
+
+    @POST
+    @Path("all")
+    public Response getAllWalksForUser(UserDTO userDTO){
+        return Response.ok(walkService.getWalksForUser(userDTO)).build();
     }
 
     private URI locationOf(Walk walk) {

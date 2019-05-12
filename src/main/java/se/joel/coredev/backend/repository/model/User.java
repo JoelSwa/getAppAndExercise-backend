@@ -40,6 +40,7 @@ public final class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",
             orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
     private Collection<Walk> walks;
 
     // ***********************************************************

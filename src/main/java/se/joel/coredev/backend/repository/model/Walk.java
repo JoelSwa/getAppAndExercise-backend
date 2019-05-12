@@ -1,5 +1,8 @@
 package se.joel.coredev.backend.repository.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
@@ -25,6 +28,7 @@ public final class Walk {
     private User user;
     private String name;
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<Geofence> geofences;
 
     protected Walk(){}

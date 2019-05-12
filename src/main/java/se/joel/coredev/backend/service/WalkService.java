@@ -7,12 +7,14 @@ import se.joel.coredev.backend.repository.GeofenceRepository;
 import se.joel.coredev.backend.repository.UserRepository;
 import se.joel.coredev.backend.repository.WalkRepository;
 import se.joel.coredev.backend.repository.dto.GeofenceDTO;
+import se.joel.coredev.backend.repository.dto.UserDTO;
 import se.joel.coredev.backend.repository.dto.WalkDTO;
 import se.joel.coredev.backend.repository.model.Geofence;
 import se.joel.coredev.backend.repository.model.User;
 import se.joel.coredev.backend.repository.model.Walk;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,5 +51,18 @@ public final class WalkService {
             return walkRepository.save(new Walk(user, walkDTO.getName(), geofences));
         }
         throw new NotFoundException("Could not add geofence, user not found");
+    }
+
+    public Collection<WalkDTO> getWalksForUser(UserDTO userDTO){
+        Optional<User> userOptional = userRepository.findByUsername(userDTO.getUsername());
+        if(userOptional.isPresent()){
+            User user = userOptional.get();
+            List<WalkDTO> walks = new ArrayList<>();
+            for(Walk w : user.getWalks()){
+                walks.add(new WalkDTO(w.getName()));
+            }
+            return walks;
+        }
+        throw new NotFoundException("User not found");
     }
 }
