@@ -72,7 +72,8 @@ public class GeofenceDTO {
         this.transition = transition;
     }
 
-    public GeofenceDTO(double latitude, double longitude, int radius) {
+    public GeofenceDTO(String name, double latitude, double longitude, int radius) {
+        this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.radius = radius;
