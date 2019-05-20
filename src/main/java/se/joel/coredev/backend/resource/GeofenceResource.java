@@ -34,13 +34,6 @@ public final class GeofenceResource {
     }
 
     @POST
-    @Path("test")
-    public Response addGeofenceTest(GeofenceDTO geofenceDTO){
-        System.out.println(geofenceDTO.getUsername());
-        return Response.ok().build();
-    }
-
-    @POST
     @Path("all")
     public Response getGeofencesForUser(UserDTO userDTO){
         return Response.ok(geofenceService.getGeofencesForUser(userDTO)).build();
@@ -50,6 +43,11 @@ public final class GeofenceResource {
     @Path("walk")
     public Response getGeofencesForWalk(WalkDTO walkDTO){
         return Response.ok(geofenceService.getGeofencesForWalk(walkDTO)).build();
+    }
+
+    @PUT
+    public Response updateGeofence(GeofenceDTO geofenceDTO){
+        return Response.created(locationOf(geofenceService.updateGeofence(geofenceDTO))).build();
     }
 
     private URI locationOf(Geofence geofence) {
