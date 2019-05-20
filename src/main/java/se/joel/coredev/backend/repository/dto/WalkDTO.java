@@ -3,6 +3,7 @@ package se.joel.coredev.backend.repository.dto;
 import java.util.Collection;
 
 public class WalkDTO {
+    private Long id;
     private String username;
     private String name;
     private Collection<GeofenceDTO> geofenceCollection;
@@ -20,6 +21,11 @@ public class WalkDTO {
         this.geofenceCollection = geofenceDTOCollection;
     }
 
+    public WalkDTO(Long id, String name){
+        this.id = id;
+        this.name = name;
+    }
+
     public WalkDTO(String name){
         this.name = name;
     }
@@ -30,6 +36,10 @@ public class WalkDTO {
 
     public String getName() {
         return name;
+    }
+
+    public Long getId(){
+        return this.id;
     }
 
     public Collection<GeofenceDTO> getGeofenceCollection() {
