@@ -54,4 +54,12 @@ public final class Walk {
     public Collection<Geofence> getGeofences() {
         return geofences;
     }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public void setGeofences(Collection<Geofence> geofences) {
+        this.geofences = geofences;
+    }
 }
