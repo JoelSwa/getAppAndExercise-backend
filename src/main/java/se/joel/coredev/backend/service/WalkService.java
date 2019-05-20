@@ -59,9 +59,33 @@ public final class WalkService {
             User user = userOptional.get();
             List<WalkDTO> walks = new ArrayList<>();
             for(Walk w : user.getWalks()){
-                walks.add(new WalkDTO(w.getName()));
+                walks.add(new WalkDTO(w.getId(), w.getName()));
             }
             return walks;
+        }
+        throw new NotFoundException("User not found");
+    }
+
+    public Walk updateWalk(WalkDTO walkDTO){
+        Optional<User> userOptional = userRepository.findByUsername(walkDTO.getUsername());
+        if (userOptional.isPresent()) {
+            Optional<Walk> walkOptional = walkRepository.findById(walkDTO.getId());
+            if (walkOptional.isPresent()) {
+                Walk walk = walkOptional.get();
+                walk.setName(walkDTO.getName());
+                Collection<Geofence> geofences = new ArrayList<>();
+                for(GeofenceDTO fence : walkDTO.getGeofenceCollection()){
+                    System.out.println("updateWalk lägger till " + fence.getName());
+                    Optional<Geofence> geofenceOptional = geofenceRepository.findById(fence.getId());
+                    if(geofenceOptional.isPresent()){
+                        geofences.add(geofenceOptional.get());
+                    }
+                }
+                walk.setGeofences(null);
+                walk.setGeofences(geofences);
+                return walkRepository.save(walk);
+            }
+            throw new NotFoundException("Walk not found");
         }
         throw new NotFoundException("User not found");
     }
