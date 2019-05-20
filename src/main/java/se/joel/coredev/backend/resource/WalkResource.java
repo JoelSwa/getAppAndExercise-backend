@@ -38,6 +38,11 @@ public final class WalkResource {
         return Response.ok(walkService.getWalksForUser(userDTO)).build();
     }
 
+    @PUT
+    public Response updateWalk(WalkDTO walkDTO){
+        return Response.ok(walkService.updateWalk(walkDTO)).build();
+    }
+
     private URI locationOf(Walk walk) {
         return uriInfo.getBaseUriBuilder().path(uriInfo.getPathSegments().get(0).toString())
                 .segment(walk.getId().toString()).build();
