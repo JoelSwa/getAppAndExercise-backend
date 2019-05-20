@@ -1,6 +1,8 @@
 package se.joel.coredev.backend.repository.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -36,6 +38,7 @@ public final class Geofence {
     @JsonIgnore
     private User user;
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<Walk> walks;
 
     // ***********************************************************
@@ -92,4 +95,20 @@ public final class Geofence {
     }
 
     public Collection<Walk> getWalks() { return walks; }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
+    }
 }
