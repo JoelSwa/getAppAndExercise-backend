@@ -50,13 +50,10 @@ public final class GeofenceService {
         Optional<User> userOptional = userRepository.findByUsername(userDTO.getUsername());
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            if (null != user.getGeofences() && user.getGeofences().size() > 0) {
-                for (Geofence geo : user.getGeofences()) {
-                    geofences.add(new GeofenceDTO(geo.getId(), geo.getName(), geo.getLatitude(), geo.getLongitude(), geo.getRadius(), geo.getTransition()));
-                }
-                return geofences;
+            for (Geofence geo : user.getGeofences()) {
+                geofences.add(new GeofenceDTO(geo.getId(), geo.getName(), geo.getLatitude(), geo.getLongitude(), geo.getRadius(), geo.getTransition()));
             }
-            throw new NotFoundException("No geofences found for user");
+            return geofences;
         }
         throw new NotFoundException("User not found");
     }
@@ -95,7 +92,7 @@ public final class GeofenceService {
         throw new NotFoundException("User not found");
     }
 
-    public void deleteGeofence(GeofenceDTO geofenceDTO){
+    public void deleteGeofence(GeofenceDTO geofenceDTO) {
         Optional<User> userOptional = userRepository.findByUsername(geofenceDTO.getUsername());
         if (userOptional.isPresent()) {
             Optional<Geofence> geofenceOptional = geofenceRepository.findById(geofenceDTO.getId());
