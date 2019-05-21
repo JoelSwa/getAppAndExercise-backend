@@ -43,6 +43,13 @@ public final class WalkResource {
         return Response.ok(walkService.updateWalk(walkDTO)).build();
     }
 
+    @PUT
+    @Path("delete")
+    public Response deleteWalk(WalkDTO walkDTO){
+        walkService.deleteWalk(walkDTO);
+        return Response.noContent().build();
+    }
+
     private URI locationOf(Walk walk) {
         return uriInfo.getBaseUriBuilder().path(uriInfo.getPathSegments().get(0).toString())
                 .segment(walk.getId().toString()).build();
