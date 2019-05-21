@@ -50,6 +50,13 @@ public final class GeofenceResource {
         return Response.created(locationOf(geofenceService.updateGeofence(geofenceDTO))).build();
     }
 
+    @PUT
+    @Path("delete")
+    public Response deleteGeofence(GeofenceDTO geofenceDTO){
+        geofenceService.deleteGeofence(geofenceDTO);
+        return Response.noContent().build();
+    }
+
     private URI locationOf(Geofence geofence) {
         return uriInfo.getBaseUriBuilder().path(uriInfo.getPathSegments().get(0).toString())
                 .segment(geofence.getId().toString()).build();

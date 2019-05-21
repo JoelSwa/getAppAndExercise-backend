@@ -96,24 +96,20 @@ public final class GeofenceService {
         throw new NotFoundException("User not found");
     }
 
-//    public void deleteGeofence(GeofenceDTO geofenceDTO) {
-//        Optional<User> userOptional = userRepository.findByUsername(geofenceDTO.getUsername());
-//        if (userOptional.isPresent()) {
-//            User user = userOptional.get();
-//            Optional<Geofence> geofenceOptional = geofenceRepository.findById(geofenceDTO.getId());
-//            if (geofenceOptional.isPresent()) {
-//                for (Walk w : user.getWalks()) {
-//                    for (Geofence g : w.getGeofences()) {
-//                        if (g.getId() == geofenceDTO.getId()) {
-//
-//                        }
-//                    }
-//                }
-//                geofenceRepository.deleteById(geofenceDTO.getId());
-//                return;
-//            }
-//            throw new NotFoundException("Geofence not found");
-//        }
-//        throw new NotFoundException("User not found");
-//    }
+    public void deleteGeofence(GeofenceDTO geofenceDTO){
+        Optional<User> userOptional = userRepository.findByUsername(geofenceDTO.getUsername());
+        if (userOptional.isPresent()) {
+            Optional<Geofence> geofenceOptional = geofenceRepository.findById(geofenceDTO.getId());
+            if (geofenceOptional.isPresent()) {
+                Geofence geofence = geofenceOptional.get();
+                geofence.setWalks(null);
+                geofence.setUser(null);
+                geofenceRepository.save(geofence);
+                geofenceRepository.deleteById(geofenceDTO.getId());
+                return;
+            }
+            throw new NotFoundException("Geofence not found");
+        }
+        throw new NotFoundException("User not found");
+    }
 }
