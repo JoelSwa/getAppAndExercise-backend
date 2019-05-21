@@ -47,7 +47,6 @@ public final class GeofenceService {
 
     public List<GeofenceDTO> getGeofencesForUser(UserDTO userDTO) {
         List<GeofenceDTO> geofences = new ArrayList<>();
-        System.out.println("userDTO username: " + userDTO.getUsername());
         Optional<User> userOptional = userRepository.findByUsername(userDTO.getUsername());
         if (userOptional.isPresent()) {
             User user = userOptional.get();
