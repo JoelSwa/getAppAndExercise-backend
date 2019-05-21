@@ -62,4 +62,8 @@ public final class Walk {
     public void setGeofences(Collection<Geofence> geofences) {
         this.geofences = geofences;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
