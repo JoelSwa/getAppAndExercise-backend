@@ -13,7 +13,6 @@ public class BackendApplication {
         try {
             InetAddress ip = InetAddress.getLocalHost();
             System.out.println("IP-address: " + ip.getHostAddress());
-            System.out.println("Copy-paste: http://" + ip.getHostAddress() + ":8080/geofences/");
         } catch (UnknownHostException e) {
             System.out.println("Could not obtain IP");
         }
