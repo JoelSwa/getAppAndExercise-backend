@@ -111,4 +111,12 @@ public final class Geofence {
     public void setRadius(int radius) {
         this.radius = radius;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setWalks(Collection<Walk> walks) {
+        this.walks = walks;
+    }
 }
