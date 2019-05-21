@@ -29,13 +29,9 @@ public final class UserService {
         Optional<User> userOptional = userRepository.findByUsername(validate(user).getUsername());
         if (userOptional.isPresent()) {
             User userDB = userOptional.get();
-            System.out.println("userDB username : " + userDB.getUsername());
-            System.out.println("userDB password : " + userDB.getPassword());
-            System.out.println("userDB authority : " + userDB.getAuthority());
             boolean correctPassword = HashAssistant.comparePasswords(
                     userDB.getPassword(),
                     user.getPassword());
-            System.out.println("Correct password : " + correctPassword + "\n");
             if (correctPassword) {
                 return userDB;
             }
