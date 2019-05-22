@@ -12,15 +12,13 @@ public class UserDTO {
     // ***********************************************************
 
     private String username;
-    private String test;
 
     // ***********************************************************
     // Constructors
     // ***********************************************************
 
-    public UserDTO(String username, String test){
+    public UserDTO(String username){
         this.username = username;
-        this.test = test;
     }
 
     // ***********************************************************
@@ -29,9 +27,5 @@ public class UserDTO {
 
     public String getUsername() {
         return username;
-    }
-
-    public String getTest(){
-        return test;
     }
 }
