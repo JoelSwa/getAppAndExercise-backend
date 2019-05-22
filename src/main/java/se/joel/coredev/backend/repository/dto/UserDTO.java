@@ -17,6 +17,10 @@ public class UserDTO {
     // Constructors
     // ***********************************************************
 
+    public UserDTO(){
+
+    }
+
     public UserDTO(String username){
         this.username = username;
     }
